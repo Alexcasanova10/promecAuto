@@ -1,0 +1,160 @@
+.container {
+    padding: 0;
+    margin: 0;
+}
+
+.main-container{
+    padding: 40px; 
+    justify-content: space-between;
+}
+
+
+.h1 {
+    color: #000;
+    text-align: center;
+}
+
+
+.input_Text{
+    font-size: 18px;
+    padding: 8px;
+    text-align: center;
+}
+
+ 
+.h2{
+    text-align: center;
+}
+
+label{
+    color: #000;
+    font-weight: 600;
+}
+ 
+.buscar-container{
+    margin-top: 10px; 
+    margin-bottom: 50px;
+    padding: 8px;
+    text-align: center;
+} 
+ 
+.fa:hover{
+    color: #000;
+    transition: var(--transition);
+
+}
+
+.footer2{
+    margin-top: 250px;
+}  
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#boton_actualizar{
+    cursor: pointer;
+    font-size: 22px;
+    background-color: #fff;
+    border: none;
+    margin: auto;
+    color: #bd0900;
+    padding: 6px;
+}
+.table {
+    width: 95%; 
+    margin: 0 auto;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.td {
+    width: auto;
+    font-size: 18px;
+    font-weight: bold;
+} 
+.td:hover{
+    background-color: var(--rojo);
+    color: #fff;
+}
+
+th{
+    padding: 3px;
+}
+
+.input_Text-2 {
+    padding: 6px;
+    width: 100%;  
+    font-size: 18px;
+    text-align: center;
+    box-sizing: border-box; 
+}
+
+.btn-table{
+    padding: none;
+    background-color: white;
+    border: none;
+    cursor: pointer;
+    margin: auto;
+}
+
+.btn-container{
+    width: 90%;
+    display: grid;
+    grid-template-columns: 40% 55%;
+    margin-right: auto;
+   margin-left: auto;
+   margin-bottom: 60px;
+ }
+ .divo{
+    height: 9em;
+    line-height: 1em;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+    border: 1px solid;
+    display: grid;
+     margin-right: auto;
+    margin-left: auto;
+}
+
+.btn-find{
+    cursor: pointer;
+    font-size: 20px;
+    border: 1px solid black;
+    background-color: #ccc;
+    color: #000;
+    border-radius: 4%;
+}
+
+.btn-find:hover{
+    background: #bd0900;
+    color: #fff;
+ }
+ .btn-container{
+     display: grid;
+     grid-template-columns: 40% 55%;
+     justify-content: space-between;
+     margin-bottom: 20px;
+ }
+ 
+ .divo{
+     height: 6em;
+     line-height: 1em;
+     overflow-x: hidden;
+     overflow-y: scroll;
+     width: 100%;
+     border: 1px solid;
+     display: grid;
+     margin-right: auto;
+     margin-left: auto;
+ }
+ 
+ thead{
+    position: sticky; 
+    top: 0; 
+    z-index: 1; 
+    background-color: #fff;
+} 

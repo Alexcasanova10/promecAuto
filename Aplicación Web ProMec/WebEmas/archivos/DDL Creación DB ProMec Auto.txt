@@ -1,0 +1,169 @@
+Setting environment for using XAMPP for Windows.
+BETO@ISAAC c:\xampp
+# mysql -u root -h localhost -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 10
+Server version: 10.4.28-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database Promec_Auto;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use Promec_Auto
+Database changed
+
+MariaDB [Promec_Auto]> create table Cliente(
+    -> Id_Cliente int not null auto_increment,
+    -> Nombre varchar (100) not null,
+    -> Direccion varchar (200) not null,
+    -> Telefono varchar (15) not null,
+    -> Correo varchar (100),
+    -> Primary key (Id_Cliente));
+Query OK, 0 rows affected (0.023 sec)
+
+MariaDB [Promec_Auto]> create table Auto(
+    -> Id_Auto int not null auto_increment,
+    -> Id_Cliente int,
+    -> Numero_Serie varchar (20) not null,
+    -> Placas varchar (20) not null,
+    -> Marca varchar (50),
+    -> Modelo varchar (50),
+    -> Ano year,
+    -> Primary key (Id_Auto),
+    -> Foreign key (Id_Cliente) references Cliente (Id_Cliente) );
+Query OK, 0 rows affected (0.038 sec)
+
+MariaDB [Promec_Auto]> create table Empleados (
+    -> Id_Empleado int not null auto_increment,
+    -> Nombre varchar (100) not null,
+    -> Puesto varchar (50) not null,
+    -> Fecha_Contratacion date not null,
+    -> Salario Decimal (8, 2) not null,
+    -> Primary key (Id_Empleado));
+Query OK, 0 rows affected (0.025 sec)
+
+MariaDB [Promec_Auto]> create table Servicios(
+    -> Id_Servicio int not null auto_increment,
+    -> Descripcion varchar (200) not null,
+    -> Costo decimal (8, 2) not null,
+    -> Primary key (Id_Servicio));
+Query OK, 0 rows affected (0.012 sec)
+
+MariaDB [Promec_Auto]> create table Ordenes(
+    -> Id_Orden int not null auto_increment,
+    -> Id_Auto int,
+    -> Id_Empleado int,
+    -> Id_Servicio int,
+    -> Fecha date not null,
+    -> Estatus varchar (20) not null,
+    -> Primary key (Id_Orden),
+    -> Foreign key (Id_Auto) references Auto(Id_Auto),
+    -> Foreign key (Id_Empleado) references Empleados(Id_Empleado),
+    -> Foreign key (Id_Servicio) references Servicios(Id_Servicio));
+Query OK, 0 rows affected (0.028 sec)
+
+MariaDB [Promec_Auto]> create table Facturacion(
+    -> Id_Factura int not null auto_increment,
+    -> Id_Orden int,
+    -> Fecha_Emision Date not null,
+    -> Fecha_Pago Date not null,
+    -> Monto Decimal (8, 2) not null,
+    -> Metodo_Pago varchar (50) not null,
+    -> Estatus varchar (20) not null,
+    -> Primary key (Id_Factura),
+    -> Foreign key (Id_Orden) references Ordenes (Id_Orden));
+Query OK, 0 rows affected (0.027 sec)
+
+MariaDB [Promec_Auto]> show tables;
++-----------------------+
+| Tables_in_promec_auto |
++-----------------------+
+| auto                  |
+| cliente               |
+| empleados             |
+| facturacion           |
+| ordenes               |
+| servicios             |
++-----------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [Promec_Auto]> describe auto;
++--------------+-------------+------+-----+---------+----------------+
+| Field        | Type        | Null | Key | Default | Extra          |
++--------------+-------------+------+-----+---------+----------------+
+| Id_Auto      | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Id_Cliente   | int(11)     | YES  | MUL | NULL    |                |
+| Numero_Serie | varchar(20) | NO   |     | NULL    |                |
+| Placas       | varchar(20) | NO   |     | NULL    |                |
+| Marca        | varchar(50) | YES  |     | NULL    |                |
+| Modelo       | varchar(50) | YES  |     | NULL    |                |
+| Ano          | year(4)     | YES  |     | NULL    |                |
++--------------+-------------+------+-----+---------+----------------+
+7 rows in set (0.004 sec)
+
+MariaDB [Promec_Auto]> describe cliente;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| Id_Cliente | int(11)      | NO   | PRI | NULL    | auto_increment |
+| Nombre     | varchar(100) | NO   |     | NULL    |                |
+| Direccion  | varchar(200) | NO   |     | NULL    |                |
+| Telefono   | varchar(15)  | NO   |     | NULL    |                |
+| Correo     | varchar(100) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.007 sec)
+
+MariaDB [Promec_Auto]> describe empleados;
++--------------------+--------------+------+-----+---------+----------------+
+| Field              | Type         | Null | Key | Default | Extra          |
++--------------------+--------------+------+-----+---------+----------------+
+| Id_Empleado        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| Nombre             | varchar(100) | NO   |     | NULL    |                |
+| Puesto             | varchar(50)  | NO   |     | NULL    |                |
+| Fecha_Contratacion | date         | NO   |     | NULL    |                |
+| Salario            | decimal(8,2) | NO   |     | NULL    |                |
++--------------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.008 sec)
+
+MariaDB [Promec_Auto]> describe Ordenes;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| Id_Orden    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Id_Auto     | int(11)     | YES  | MUL | NULL    |                |
+| Id_Empleado | int(11)     | YES  | MUL | NULL    |                |
+| Id_Servicio | int(11)     | YES  | MUL | NULL    |                |
+| Fecha       | date        | NO   |     | NULL    |                |
+| Estatus     | varchar(20) | NO   |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+6 rows in set (0.007 sec)
+
+MariaDB [Promec_Auto]> describe servicios;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| Id_Servicio | int(11)      | NO   | PRI | NULL    | auto_increment |
+| Descripcion | varchar(200) | NO   |     | NULL    |                |
+| Costo       | decimal(8,2) | NO   |     | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+3 rows in set (0.008 sec)
+
+MariaDB [Promec_Auto]> describe facturacion;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| Id_Factura    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| Id_Orden      | int(11)      | NO   | MUL | NULL    |                |
+| Fecha_Emision | date         | NO   |     | NULL    |                |
+| Fecha_Pago    | date         | NO   |     | NULL    |                |
+| Monto         | decimal(8,2) | NO   |     | NULL    |                |
+| Metodo_Pago   | varchar(50)  | NO   |     | NULL    |                |
+| Estatus       | varchar(20)  | NO   |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.007 sec)
+
+MariaDB [Promec_Auto]>

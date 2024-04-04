@@ -1,0 +1,241 @@
+    <?php
+        include 'mvc/modeloClientes.php';
+        $modelo = new Modelo();
+        $datos = $modelo->consultar();
+        $fila = mysqli_fetch_array($datos);
+        echo "<button name='btnRegistro' id='btnRegistro" . $fila['id_OrdServ'] . "' onclick='verRegistro(" . $fila['id_OrdServ'] . ", \"" . $fila['descripcion'] . "\", \"" . $fila['costo'] . "\", \"" . $fila['fecha'] . "\"" . $fila['estatus'] . ", \"" . $fila['placas']."\")'>". $fila['id_OrdSev'] . "  </button>";
+        
+        while ($fila = mysqli_fetch_array($datos)) {
+            echo "<button name='btnRegistro' id='btnRegistro" . $fila['id_OrdServ'] . "' onclick='verRegistro(" . $fila['id_OrdServ'] . ", \"" . $fila['descripcion'] . "\", \"" . $fila['costo'] . "\", \"" . $fila['fecha'] . "\"" . $fila['estatus'] . ", \"" . $fila['placas']."\")'>". $fila['id_OrdSev'] . "  </button>";
+        }
+    ?>
+    <tr>
+        <td class="td">Ejemplo</td>
+        <td class="td">Ejemplo</td>
+        <td class="td">Ejemplo</td>
+        <td class="td">Ejemplo</td>                
+        <td class="td">Ejemplo</td>
+        <td class="td">Ejemplo</td>
+        <td><a href=""><i class="fa fa-solid fa-x"></i></a></td>
+        <td><a href=""><i class="fa fa-solid fa-pen-to-square"></i></a></td>
+    </tr>
+
+-------------------Modelo (template para FAJARDO)
+   <?php
+
+    class Modelo{
+        public $;
+        public $;
+        public $;
+        private $conectarDB ;
+        
+
+        public function _construct(){     
+            $this->="none";
+            $this->="none";
+            $this->="none";
+        }
+
+
+        private function conexionDB(){
+            $this->conectarDB = mysqli_connect('127.0.0.1','usuario','12345678');
+            
+            if(!$this->conectarDB){
+                echo "No es posible acceder a la base de datos.<br>";
+            } else{           
+                mysqli_select_db($this->conectarDB,"");
+            }
+        }
+
+        public function select(){
+            $query = "select id,nombre, direccion, telefono from agenda";
+            $this->conexionDB();
+            $resultado = mysqli_query($this->conectarDB,$query);
+            mysqli_close($this->conectarDB);
+            return $resultado;
+        }
+
+    
+        public function crearRegistro(){
+            $crearRegistro = "insert into  () values ('".$this->."','".$this->."','".$this->."')";        
+            $this->conexionDB();
+            mysqli_query($this->conectarDB,$crearRegistro);
+            mysqli_close($this->conectarDB);
+        } 
+        
+        //$id puede ser el id de la tabla, ejemplo ID_cliente
+        public function eliminarRegistro($id){
+            $elimina = "delete from  where id=".$id;    
+            $this->conexionDB();
+            $resultado = mysqli_query($this->conectarDB,$elimina);
+            mysqli_close($this->conectarDB);
+            return $resultado;
+        }
+    }
+    -----------------controlador
+
+    <?php
+        include 'modelo.php';
+        $modelo = new Modelo();
+        if (isset($_POST[''])) {
+            $modelo-> = $_POST[''];
+        }
+
+        if (isset($_POST[''])) {
+            $modelo-> = $_POST[''];
+        }
+
+        if (isset($_POST[''])) {
+            $modelo-> = $_POST[''];
+        }
+
+        if (isset($_REQUEST['opcion'])&&isset($_REQUEST['id'])) {
+            
+            if($_REQUEST['opcion']=2){
+                $modelo->eliminarRegistro($_REQUEST['id']);
+            }
+        }else{
+            $modelo->crearRegistro();}
+            header('Location: vista.php');
+
+//tabla de vista
+ <table border="1">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                include 'modelo.php';
+                $modelo = new Modelo();
+                $info = $modelo->consultar();
+                while ($fila = mysqli_fetch_array($info)) {
+                    echo "<tr><td>" . $fila['id'] . "</td><td>" . $fila['nombre'] . "</td><td>" . $fila['direccion'] . "</td><td>" . $fila['telefono'] . "</td>                
+                    <td>
+                        <a id=\"borrar\" name=\"borrar\" href='controlador.php?id=" . $fila['id'] . "&opcion=2'>Borrar</a>
+                    </td></tr>";
+                }
+
+                ?>
+            </tbody>
+        </table>
+
+
+                 <div>" . $row['Nombre_cliente'] . "</div>
+                            <div>" . $row['Apellido_cliente'] . "</div>
+                            <div>" . $row['RFC_cliente'] . "</div>
+                            <div>" . $row['ID_cliente'] . "</div>
+                            <div>" . $row['Fecha_modificacion'] . "</div>
+                            <div>". $row['Hora_modificacion']. "</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 
+NAMES PHPMYADMIN
+Id_Auto
+Id_Cliente
+Numero_Serie
+Placas
+Marca
+Modelo
+Propietario
+Kilometros 
+
+NAMES HTML
+modelo
+marca
+propietario
+kilometraje
+placas
+id_Auto
+id_Cliente
+numero_Serie
+-->
+
+
+
+
+                           <tr>
+                                <td class="td"><input type="text" name="modelo" class="input_Text-2"></td>
+                                <td class="td"><input type="text" name="marca" class="input_Text-2"></td>
+                                <td class="td"><input type="text" name="propietario" class="input_Text-2"></td>
+                                <td class="td"><input type="number" min="10" name="kilometraje" class="input_Text-2"></td>                
+                                <td class="td"><input type="text" name="placas" class="input_Text-2"></td>
+                                <td class="td"><input type="text" name="id_Auto" class="input_Text-2"></td>
+                                <td class="td"><input type="text" name="id_Cliente" class="input_Text-2"></td>
+                                <td class="td"><input type="text" name="numero_Serie" class="input_Text-2"></td>
+                                <td class="td"><a href=""><i class="fa fa-solid fa-check"></i></a></td>
+                                <td class="td"><a href=""><i class="fa fa-solid fa-x"></i></a></td>
+                                <td class="td"><a href=""><i class="fa fa-solid fa-pen-to-square"></i></a></td>
+                            </tr>
+
+
+
+
+
+
+      				<th>Modelo</th>
+                                <th>Marca</th>
+                                <th>Propietario</th>
+                                <th>Kilometraje</th>
+                                <th>Placas</th>
+                                <th>ID Auto</th>
+                                <th>ID Cliente</th>
+                                <th>Numero de Serie</th>                                
+                                <th>Guardar</th>                                
+                                <th>Eliminar</th>
+                                <th>Editar</th>
+
+
+
+
+SELECT SUM(CASE WHEN tipo = 'ingreso' THEN Monto ELSE 0 END) AS total_ingresos, SUM(CASE WHEN tipo = 'egreso' THEN Monto ELSE 0 END) AS total_egresos, SUM(CASE WHEN tipo = 'ingreso' THEN Monto ELSE 0 END) - SUM(CASE WHEN tipo = 'egreso' THEN Monto ELSE 0 END) AS corte_de_caja FROM pagos WHERE fecha = '2024-04-17';
+
+
+
+
+
+
+
+
+
+                    <?php
+                    include 'mvc/modeloPagos.php';
+                    $modelo = new Modelo();
+                    $fecha= $modelo->fecha_de_Corte;
+                     
+                    echo '<input type="date" name="fecha_de_Corte" id="fecha_de_Corte" class="input_Text">';
+                    echo '<a class="btn" href="mvc/controladorPagos.php?fecha_de_Corte=".$fecha ."&opcionCorte=3">Realizar corte</a>'; 
+
+                                        
+                    echo '<h2>aqui quiero desplegar el corte</h2>';   
+                    
+                    ?>
